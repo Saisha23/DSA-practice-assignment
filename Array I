@@ -1,0 +1,50 @@
+1. Reversing the array 
+
+void reverseArray(vector<int> &arr , int M) {
+    // Write your code here   
+    if(M<arr.size()){
+        int i=M+1;
+        int j= arr.size()-1;
+        while(i<j){
+            swap(arr[i],arr[j]);
+            i++;
+            j--;
+        }
+    }   
+     	
+}
+
+
+2. Finding maximum and minimum elements
+
+class Solution {
+public:
+    int minimumDeletions(vector<int>& nums) {
+
+        int less=0,more=0;
+        if(nums.size()==1){ return 1;}
+        for (int i=0;i<nums.size();i++){
+            if(nums[i]>=nums[less]) {
+                less=i;}
+            if(nums[i]<=nums[more]) {
+                more=i;}    
+        }
+        if(less>more) swap(less,more);
+        int left= max(less,more)+1;
+        int right= nums.size()-min(less,more);
+        int both= nums.size()-more+less+1;
+        return min({left,right,both});
+    }
+};
+
+3. Running sum of 1D array
+
+class Solution {
+public:
+    vector<int> runningSum(vector<int>& nums) {
+        for(int i=1;i<nums.size();i++){
+            nums[i]=nums[i]+nums[i-1];
+        }
+        return nums;
+    }
+};
