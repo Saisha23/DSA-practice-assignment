@@ -48,3 +48,41 @@ public:
         return nums;
     }
 };
+
+4. count elements with maximum frequency
+
+class Solution {
+public:
+    int maxFrequencyElements(vector<int>& nums) {
+        unordered_map<int,int> freq;
+        int maxi=0;
+        int totfreq = 0;
+
+        for (int num: nums){
+            freq[num]++;
+            int frequency = freq[num];
+
+            if (frequency>maxi){
+                maxi = frequency;
+                totfreq = frequency;
+            }
+            else if(frequency == maxi){
+                totfreq+= frequency;
+            }
+        }
+        return totfreq;
+    }
+};
+
+5. left/right rotate an array by k positions
+
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        n = len(nums)
+        k %= n  
+
+        nums[:n-k] = reversed(nums[:n-k])
+
+        nums[n-k:] = reversed(nums[n-k:])
+
+        nums[:] = reversed(nums)
