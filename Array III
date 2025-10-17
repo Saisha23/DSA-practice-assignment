@@ -1,0 +1,44 @@
+1. union and intersection of sorted arrays
+
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        sort(nums1.begin(),nums1.end());
+        sort(nums2.begin(),nums2.end());
+        vector<int> ans;
+        int i=0,j=0;
+        while(i<nums1.size() && j<nums2.size()){
+            if(nums1[i]==nums2[j]){
+                if ( ans.empty() || nums1[i]!=ans.back() )
+                    ans.push_back(nums1[i]);
+                i++;
+                j++;    
+                
+            }
+            else if(nums1[i]>nums2[j]) j++;
+            else i++;
+        }
+        return ans;
+    }
+};
+
+2. maximum subarray sum
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int maxi=INT_MIN;
+        int sum=0;
+        
+        for (int i=0;i<nums.size();i++){
+            sum=sum+nums[i];
+            if(sum>=maxi){
+                maxi=sum;
+            }
+            if (sum<0){
+                sum=0;
+            }
+        }
+        return maxi;
+    }
+};
