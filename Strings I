@@ -1,0 +1,45 @@
+1. check given string is palindrome or not
+
+class Solution:
+    def isPalindrome(self, s):
+        s1 = ""
+        for i in range(len(s)):
+            if s[i].isalnum():
+                s1 += s[i].lower()  
+        if s1 == s1[::-1]:
+            return True
+        else:
+            return False
+
+
+2. count number of vowel and consonant
+
+int solve(string str, int length) {
+  int vowels = 0, consonants = 0, whitespaces = 0;
+  for (int i = 0; i < length; i++) // converting given string to lowercase
+  {
+    str[i] = towlower(str[i]);
+  }
+  for (int i = 0; i < length; i++) {
+    if (str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u')
+      vowels++;
+    else if (str[i] >= 'a' && str[i] <= 'z')
+      consonants++;
+    else if (str[i] == ' ')
+      whitespaces++;
+  }
+
+
+3. remove character except alphabet 
+
+class Solution {
+public:
+    string removeNonAlphabets(string s) {
+        string result = "";
+        for (char c : s) {
+            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+                result += c;
+            }
+        }
+        return result;
+    }
