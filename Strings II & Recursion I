@@ -1,0 +1,92 @@
+1. Calculate frequency of a character
+
+void Printfrequency(string str)
+{
+  int freq[26] = {0};
+  for (int i = 0; i < str.length(); i++)
+  {
+    freq[str[i] - 'a']++;
+  }
+  for (int i = 0; i < 26; i++)
+  {
+    if (freq[i] != 0)
+    {
+      cout << (char)(i + 'a') << freq[i] << " ";
+    }
+  }
+}
+
+2. find factorial
+
+class Solution {
+  public:
+    void printTillN(int n) {
+        // code here
+        if (n==0) return ;
+        
+        printTillN(n-1);
+        cout<< n << " ";
+    }
+};
+        return ans
+
+3. find power of a number
+
+class Solution {
+  public:
+  
+    int reverse(int n, int rev=0){
+        if (n==0) return rev;
+        return reverse(n/10, rev*10+n%10);
+    }
+    
+    int power(int a ,int b){
+        if (b==0) return 1;
+        return a*power(a,b-1);
+    }
+    int reverseExponentiation(int n) {
+        int rev= reverse(n);
+        return power(n,rev);
+    }
+};
+
+4. count digit
+
+class Solution {
+  public:
+    // Function to count the number of digits in n that evenly divide n
+    int count=0;
+    void division(int num, int original){
+        if (num==0) return;
+        if(num%10!=0 && original%(num%10)==0) count+=1;
+        division(num/10, original);
+    }
+    
+    int evenlyDivides(int n) {
+        // code here
+        division(n,n);
+        return count;
+        
+    }
+};
+
+5. sum of array
+
+// User function template for C++
+class Solution {
+  public:
+    // Function to return sum of elements
+    int sum=0;
+    
+    void findsum(vector<int>& arr, int i){
+        if (i==arr.size()) return;
+        sum+=arr[i];
+        findsum(arr,i+1);
+        
+    }
+    int arraySum(vector<int>& arr) {
+        // code here
+        findsum(arr, 0);
+        return sum;
+    }
+};
