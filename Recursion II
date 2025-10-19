@@ -1,0 +1,46 @@
+1. find pivot index
+
+class Solution {
+public:
+
+    int findpivot(vector<int>& nums, int i, int right, int left){
+        if (nums.size()==i) return -1;
+        right-= nums[i];
+        if(right==left) return i;
+        return findpivot(nums, i+1, right, left+nums[i]);
+    }
+    int pivotIndex(vector<int>& nums) {
+        int rightsum=0;
+
+        for (int i=0;i<nums.size();i++){
+            rightsum+=nums[i];
+        }
+        return findpivot(nums,0,rightsum,0);
+    }
+};
+
+2. fibonacci number
+
+class Solution {
+  public:
+    int nthFibonacci(int n) {
+        // code here
+        if (n==0 || n== 1) return n;
+        return nthFibonacci(n-1)+ nthFibonacci(n-2);
+    }
+};
+
+3. tower of hanoi
+
+class Solution {
+  public:
+    int towerOfHanoi(int n, int from, int to, int aux) {
+        // code here
+        if (n==0) return 0;
+        int m1= towerOfHanoi (n-1, from, aux, to);
+        int m2= towerOfHanoi(n-1, aux, to, from);
+        return m1+1+m2;
+    }
+};
+
+4. 
