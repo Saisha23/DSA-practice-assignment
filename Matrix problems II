@@ -1,0 +1,40 @@
+1. identifying rows witm max 1's
+
+class Solution {
+public:
+    vector<int> rowAndMaximumOnes(vector<vector<int>>& mat) {
+        int rowno=0;
+        int maxones=0;
+        int n= mat[0].size();
+        int m= mat.size();
+        for (int i=0;i<m;i++){
+            int ones=0;
+            for (int j=0;j<n;j++){
+                if (mat[i][j]==1) ones+=1;
+                if (ones> maxones) {
+                    maxones=ones;
+                    rowno=i;}
+            }
+        }
+        return {rowno,maxones};
+    }
+};
+
+
+2. rotating matrices by 90 degree
+
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i+1; j < n; j++) {
+                swap(matrix[i][j],matrix[j][i]);
+                }
+        }
+        for (int i = 0; i < n; i++) {
+            reverse(matrix[i].begin(), matrix[i].end());
+        }
+    }
+};
