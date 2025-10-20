@@ -1,0 +1,43 @@
+1. reverse LinkedList
+
+class Solution:
+    def reverseList(self, head):
+        prev= None 
+        curr= head
+
+        while curr is not None:
+            next= curr.next
+            curr.next=prev
+            prev= curr
+            curr= next
+        return prev
+
+2. find mid of the LinkedList
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* slow=head;
+        ListNode* fast= head;
+        while(fast!=nullptr && fast->next!=nullptr){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        
+        return slow;
+    }
+
+3. merge two sorted LinkedLists
+
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        if (!list1 || !list2)
+            return list1 ? list1 : list2;
+        if (list1->val > list2->val)
+            swap(list1, list2);
+        list1->next = mergeTwoLists(list1->next, list2);
+        return list1;
+    }
+};
+};
