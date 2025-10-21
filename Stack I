@@ -1,0 +1,45 @@
+1. smaller on left
+
+
+
+
+
+2. valid parentheses 
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack=[]
+        mapping={"(":")","{":"}","[":"]"}
+
+        for char in s:
+            if char in mapping.keys():
+                stack.append(char)
+            elif char in mapping.values():
+                if not stack or mapping[stack.pop()] != char:
+                    return False
+        return not stack
+
+3. evaluate postfix expression
+
+class Solution:
+    def evaluatePostfix(self, arr):
+        st=[]
+        for i in arr:
+            if i.lstrip('-').isdigit():
+                st.append(int(i))
+                
+            else:
+                b= st.pop()
+                a= st.pop()
+                if (i=='+'):
+                    st.append(a+b)
+                elif (i=='-'):
+                    st.append(a-b)
+                elif (i=='*'):
+                    st.append(a*b)
+                elif (i=='/'):
+                    st.append(a//b)
+                elif (i=='^'):
+                    st.append(a**b)
+                
+        return st[-1]
