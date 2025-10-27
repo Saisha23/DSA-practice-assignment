@@ -1,0 +1,76 @@
+1. min stack 
+
+class MinStack {
+    stack<int> s, st;
+public:
+    void push(int val) {
+        s.push(val);
+        if (st.empty() || st.top()>=val) st.push(val);
+    }
+    
+    void pop() {
+        if (s.top()==st.top()) st.pop();
+        s.pop();
+    }
+    
+    int top() {
+        return s.empty() ? -1: s.top();
+    }
+    
+    int getMin() {
+        return st.empty()? -1: st.top();
+    }
+};
+
+2. asteroid collision
+
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+        stack<int> s;
+
+        for (int a : asteroids) {
+            bool destroyed = false;
+
+            while (!s.empty() && a < 0 && s.top() > 0) { 
+                if (abs(a) > abs(s.top())) {
+                    s.pop();
+                } else if (abs(a) == abs(s.top())) {
+                    s.pop(); 
+                    destroyed = true;
+                    break;
+                } else {
+                    destroyed = true; 
+                    break;
+                }
+            }
+
+            if (!destroyed) s.push(a);
+        }
+        vector<int> res(s.size());
+        for (int i = s.size() - 1; i >= 0; --i) {
+            res[i] = s.top();
+            s.pop();
+        }
+
+        return res;
+    }
+
+3. stock span problem 
+
+class StockSpanner {
+public:
+    stack<pair<int,int>> s;
+    StockSpanner() {
+    }
+    int next(int price) {
+        int res= 1;
+        while(!s.empty() && s.top().first <= price){
+            res+=s.top().second;
+            s.pop();
+        }
+        s.push({price,res});
+        return res;
+    }
+};
+};
