@@ -1,0 +1,129 @@
+1. queue implementation using array
+
+class myQueue {
+    vector<int> arr;
+    int n;
+
+  public:
+    myQueue(int size) {
+        // Define Data Structures
+        n=size;
+    }
+
+    bool isEmpty() {
+        // check if the queue is empty
+        return arr.empty();
+    }
+
+    bool isFull() {
+        // check if the queue is full
+        return (arr.size()==n) ;
+    }
+
+    void enqueue(int x) {
+        // Adds an element x at the rear of the queue.
+        if (isFull()) return;
+        arr.push_back(x);
+        
+    }
+
+    void dequeue() {
+        // Removes the front element of the queue.
+        if (isEmpty()) return;
+        arr.erase(arr.begin());
+    }
+
+    int getFront() {
+        // Returns the front element of the queue.
+        if (isEmpty()) return -1;
+        return arr.front();
+    }
+
+    int getRear() {
+        // Return the last element of queue
+        if (isEmpty()) return -1;
+        return(arr.back());
+    }
+};
+
+2. implement circular queue
+
+class MyCircularQueue {
+public:
+    vector<int> v;
+    int rear=0;
+    int front=0;
+    int n;
+
+    MyCircularQueue(int k) {
+        v= vector<int>(k+1);
+        n=k+1;
+    }
+    
+    bool enQueue(int value) {
+        if (isFull()) return false;
+        v[rear]= value;
+        rear= (rear+1)%n;
+        return true;
+    }
+    
+    bool deQueue() {
+        if (isEmpty()) return false;
+        front = (front+1)%n;
+        return true;
+    }
+    
+    int Front() {
+        if (isEmpty()) return -1;
+        return v[front];
+    }
+    
+    int Rear() {
+        if (isEmpty()) return -1;
+        int ele= (rear == 0)? n-1: rear-1;
+        return v[ele];
+    }
+    
+    bool isEmpty() {
+        return (front==rear);
+    }
+    
+    bool isFull() {
+        return (rear+1)% n == front;
+    }
+};
+
+3. queue using stack
+
+class MyQueue {
+    stack<int> input, output;
+public:
+    MyQueue() {
+        
+    }
+    
+    void push(int x) {
+        input.push(x);
+    }
+    
+    int pop() {
+        peek();
+        int s= output.top();
+        output.pop();
+        return s;
+    }
+    
+    int peek() {
+        if(output.empty()){
+            while(input.size()){
+                output.push(input.top());
+                input.pop();
+            }
+        }
+        return output.top();
+    }
+    
+    bool empty() {
+        return input.empty() && output.empty();
+    }
+};
