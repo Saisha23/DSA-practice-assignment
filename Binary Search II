@@ -1,0 +1,87 @@
+1. search in rotated sorted array
+
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+       int low=0,high=nums.size()-1;
+       while(low<=high){
+          int mid=low+(high-low)/2;
+          if(nums[mid]==target){
+            return mid;
+          }
+          if(nums[low]<=nums[mid]){ // left sorted
+            if(nums[low]<=target && target<=nums[mid]){
+                high=mid-1;
+            }else{
+                low=mid+1;
+            }
+          }else{ // right sorted
+            if(nums[mid]<=target && target<=nums[high]){
+                low=mid+1;
+            }else{
+                high=mid-1;
+            }
+          }
+       }
+       return -1;
+    }
+};
+
+2. search in rotated sorted array II
+
+class Solution {
+public:
+    bool search(vector<int>& nums, int target) {
+        int low=0;
+        int n=nums.size()-1;
+        int high=n;
+        while(low<=high){
+            int mid=(low+high)/2;
+            if (nums[mid]==target) return true;
+            if (nums[low] == nums[mid] && nums[mid] == nums[high]) {
+                low++;
+                high--;
+            }
+            else if(nums[low]<=nums[mid]){
+                if(nums[low]<=target && target<nums[mid]) high=mid-1;
+                else low=mid+1;
+            }
+            else{
+                if(nums[mid]<target && target<=nums[high]) low=mid+1;
+                else high=mid-1;
+            }
+        }
+        return false;
+    }
+};
+
+3. aggressive cows
+
+class Solution {
+  public:
+    bool possible(vector<int> &stalls, int dist,int cows){
+        int cntCows=1;
+        int last=stalls[0];
+        for(int i=1;i<stalls.size();i++){
+            if(stalls[i]-last>=dist){
+                cntCows++;
+                last=stalls[i];
+            }
+            if(cntCows>=cows) return true;
+        }
+        return false;
+    }
+    int aggressiveCows(vector<int> &stalls, int k) {
+        // code here
+        sort(stalls.begin(),stalls.end());
+        int n=stalls.size();
+        int low=1;
+        int high=stalls[n-1]-stalls[0];
+        while(low<=high){
+            int mid=(low+high)/2;
+            if(possible(stalls,mid,k)) low=mid+1;
+            else high=mid-1;
+        }
+        return high;
+    }
+};
