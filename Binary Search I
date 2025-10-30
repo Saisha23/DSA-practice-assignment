@@ -1,0 +1,61 @@
+1. koko eating bananas
+
+class Solution {
+public:
+    int maxele(vector<int> &piles){
+        int maxi = 0;
+        for (int i = 0; i < piles.size(); i++) {
+            maxi = max(maxi, piles[i]);
+        }
+        return maxi;
+    }
+
+    long long calc(vector<int> &piles, int hourly) {
+        long long toth = 0;
+        for (int i = 0; i < piles.size(); i++) {
+            toth += (piles[i] + hourly - 1) / hourly;
+        }
+        return toth;
+    }
+
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int low = 1;
+        int high = maxele(piles);
+        int ans = high;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            long long toth = calc(piles, mid);
+
+            if (toth <= h) {
+                ans = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return ans;
+    }
+};
+
+2. first bad version
+
+// The API isBadVersion is defined for you.
+// bool isBadVersion(int version);
+
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        int low=0;
+        int high= n;
+        while(low<high){
+            int mid= low+(high-low)/2;
+            if (isBadVersion(mid)== false) low=mid+1;
+            else{
+                high = mid;
+            }
+        }
+        return low;
+    }
+};
