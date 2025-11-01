@@ -28,3 +28,75 @@ public:
 
 2. inorder traversal 
 
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> inorder;
+        TreeNode* curr=root;
+
+        while(curr!= NULL){
+            if( curr->left== NULL){
+                inorder.push_back(curr->val);
+                curr=curr->right;
+            }
+            else{
+                TreeNode* prev= curr-> left;
+                while( prev->right && prev->right!=curr){
+                    prev=prev-> right;
+                }
+                if(prev->right==NULL){
+                    prev->right=curr;
+                    curr=curr->left;
+                }
+                else{
+                    prev->right= NULL;
+                    inorder.push_back(curr->val);
+                    curr=curr->right;
+                }
+            }
+        }
+        return inorder;
+    }
+};
+
+3. postorder traversal
+
+class Solution {
+public:
+    void postorderTraversalHelper(TreeNode* root, vector<int>& ans) {
+        if (!root) return;
+        postorderTraversalHelper(root->left, ans);
+        postorderTraversalHelper(root->right,ans);
+        ans.push_back(root->val);
+    }
+    vector<int> postorderTraversal(TreeNode* root){
+        vector<int> ans;
+        postorderTraversalHelper(root,ans);
+        return ans;
+    }
+};
+
+4. Level Order Traversal (Morris Traversal) 
+
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
+        if (!root) return ans;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            int s=q.size();
+            vector<int> v;
+            for(int i=0;i<s;i++){
+                TreeNode* node= q.front();
+                q.pop();
+                if (node->left) q.push(node->left);
+                if (node->right) q.push(node->right);
+                v.push_back(node->val);
+            }
+            ans.push_back(v);
+        }
+        return ans;
+    }
+};
