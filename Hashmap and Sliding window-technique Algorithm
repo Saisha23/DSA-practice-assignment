@@ -1,0 +1,68 @@
+1. longest consecutive sequence
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        if (nums.empty()) return 0;
+
+        unordered_set<int> s(nums.begin(), nums.end()); 
+        int longest = 0;
+
+        for (int num : s) {
+            if (!s.count(num - 1)) {
+                int curr = num;
+                int streak = 1;
+                while (s.count(curr + 1)) {
+                    curr++;
+                    streak++;
+                }
+                longest = max(longest, streak);
+            }
+        }
+        return longest;
+    }
+};
+
+2. longest substring without repeating characters
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.length();
+        int maxlen=0;
+        unordered_map<char,int> mpp;
+        int left=0;
+
+        for(int right=0; right<n; right++){
+            if (mpp.count(s[right])==0 || mpp[s[right]]< left){
+                mpp[s[right]] = right;
+                maxlen= max(maxlen, right-left+1);
+            }
+            else{
+                left = mpp[s[right]]+1;
+                mpp[s[right]]= right;
+            }
+        }
+        return maxlen;
+    }
+};
+
+3. bulls and cows
+
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        int n= secret.size();
+        int bull=0;
+        int cows=0;
+        vector<int> vi(10);
+        for (int i=0;i<n;i++){
+            if (secret[i]==guess[i]) bull++;
+            else{
+                if (vi[secret[i]-'0']++<0) cows++;
+                if (vi[guess[i]-'0']-->0) cows++;
+            }
+        }
+        return to_string(bull)+'A' + to_string(cows)+'B';
+    }
+};
