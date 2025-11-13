@@ -1,0 +1,53 @@
+1. largest subarray with 0 sum
+
+class Solution {
+  public:
+    int maxLength(vector<int>& arr) {
+        unordered_map<int,int> map;
+        int ans=0;
+        int sum=0;
+        for (int i=0;i< arr.size();i++){
+            sum+=arr[i];
+            if (sum==0) ans= max(ans,i+1);
+            if (map.find(sum) != map.end()) ans= max(ans, i- map[sum]);
+            else map[sum] =i;
+        }
+        return ans;
+    }
+};
+
+2. count of zero sum subarray 
+
+class Solution {
+  public:
+    int findSubarray(vector<int> &arr) {
+        int result =0;
+        map<int,int> freq;
+        int sum=0;
+        freq[0]++;
+        for (int i=1;i<=arr.size();i++){
+            sum+=arr[i-1];
+            freq[sum]++;
+            result+= freq[sum] - 1;
+        }
+        return result;
+    }
+};
+
+3. length of largest subarray with contiguous elements 
+
+class Solution {
+public:
+    int findMaxLength(vector<int>& nums) {
+        int sum=0, maxLen=0;
+        unordered_map<int, int> seen{{0, -1}};
+        
+        for(int i=0; i<nums.size(); i++){
+            sum += nums[i]==1 ? 1 : -1;
+            if(seen.count(sum)) maxLen = max(maxLen, i-seen[sum]);
+            else seen[sum] = i;
+        }
+        return maxLen;
+    }
+};
+
