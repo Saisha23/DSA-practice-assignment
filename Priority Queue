@@ -1,0 +1,55 @@
+1. implementation of priority queue 
+
+// Helper class Geeks to implement
+// insert() and findFrequency()
+class Geeks {
+
+    // Function to insert element into the queue
+    static void insert(PriorityQueue<Integer> q, int k) {
+        q.add(k);
+        // Your code here
+        // Just insert k in q and don't return anything
+    }
+
+    // Function to find an element k
+    static boolean find(PriorityQueue<Integer> q, int k) {
+
+        return q.contains(k);
+        // Your code here
+        // If k is in q return true else return false
+    }
+
+    // Function to delete the max element from queue
+    static int delete(PriorityQueue<Integer> q) {
+        
+        return q.poll();
+        // Your code here
+        // Delete the max element from q. The priority queue property might be useful
+        // here
+    }
+}
+
+2. min and max heap
+
+vector<int> buildHeap(vector<int> arr, int n){
+    vector<int> ans;
+    int index=0;
+    for (int i=0;i<n;i++){
+        if(ans.empty()){
+            ans.push_back(arr[i]);
+        }
+        else{
+            ans.push_back(arr[i]);
+            index=i;
+            while(index>0){
+                int parent= (index-1)/2;
+                if (ans[parent]<ans[index]){
+                    swap(ans[parent],ans[index]);
+                }
+                index=parent;
+            }
+            
+        }
+    }
+    return ans;
+}
