@@ -1,0 +1,56 @@
+1. check max heap
+
+class Solution {
+  public:
+    bool isHeap(Node* tree) {
+        if(!tree) return true;
+        queue<Node*> q;
+        q.push(tree);
+        bool nullFound = false;
+        
+        while (!q.empty()){
+            Node* curr = q.front();
+            q.pop();
+            
+            if(curr->left){
+                if(nullFound) return false;
+                if (curr->left->data> curr->data) return false;
+                q.push(curr->left);
+            }
+            else nullFound= true;
+            
+            if(curr->right){
+                if(nullFound) return false;
+                if (curr->right->data > curr->data) return false;
+                q.push(curr->right);
+            }
+            else nullFound= true;
+        }
+        return true;
+    }
+};
+
+2. top k frequent element
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int,int> mpp;
+        for (int x: nums) mpp[x]++;
+
+        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+        for (auto&p :mpp){
+            pq.push({p.second,p.first});
+            if (pq.size()>k) pq.pop();
+        }
+        vector<int> result;
+        while(!pq.empty()){
+            result.push_back(pq.top().second);
+            pq.pop();
+        }
+        return result;
+    }
+};
+
+3. sliding window maximum
+
