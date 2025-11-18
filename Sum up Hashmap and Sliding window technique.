@@ -1,0 +1,43 @@
+1. find all anagram in string
+
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        int slen= s.length();
+        int plen= p.length();
+        if (slen<plen) return{};
+        vector<int> freq_p(26,0);
+        vector<int> window(26,0);
+
+        for (int i=0;i<plen;i++){
+            freq_p[p[i]-'a']++;
+            window[s[i]-'a']++;
+        }
+        vector<int> ans;
+        if(freq_p == window) ans.push_back(0);
+
+        for(int i=plen;i<slen;i++){
+            window[s[i-plen]-'a']--;
+            window[s[i]-'a']++;
+
+            if(freq_p ==window) ans.push_back(i-plen+1);
+        }
+        return ans;
+    }
+};
+
+2. isomorphic string 
+
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        if (s.size()!=t.size()) return false;
+        int m1[256]={0}, m2[256]={0}, n=s.size();
+        for(int i=0; i<n ;i++){
+            if(m1[s[i]]!= m2[t[i]]) return false;
+            m1[s[i]]= i+1;
+            m2[t[i]]= i+1;
+        }
+        return true;
+    }
+};
