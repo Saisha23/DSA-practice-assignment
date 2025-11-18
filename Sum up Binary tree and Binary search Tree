@@ -1,0 +1,65 @@
+1. sum of leaves
+
+class Solution {
+public:
+    int sumOfLeftLeaves(TreeNode* root, bool isleft= false) {
+        if (!root) return 0;
+        if (!root->left && !root->right) return isleft? root->val: 0;
+        return sumOfLeftLeaves(root->left, true) + sumOfLeftLeaves(root->right, false);
+    }
+};
+
+2. top view
+
+class Solution {
+  public:
+    vector<int> topView(Node *root) {
+        // code here
+        vector<int> ans;
+        map<int,int> mpp;
+        queue<pair<Node*,int>> q;
+        q.push({root,0});
+        while(!q.empty()){
+            int size= q.size();
+            for(int i=0;i<size;i++){
+                auto front= q.front();
+                q.pop();
+                if(!mpp.count(front.second)){
+                    mpp[front.second]= front.first->data;
+                }
+                if (front.first->left) q.push({front.first->left,front.second-1});
+                if (front.first->right) q.push({front.first->right,front.second+1});
+            }
+        }
+        for(auto i:mpp){
+            ans.push_back(i.second);
+        }
+        return ans;
+    }
+};
+
+3. bottom view
+
+class Solution {
+  public:
+    vector<int> bottomView(Node *root) {
+        // code here
+        vector<int> ans;
+        if(!root) return ans;
+        map<int,int> mpp;
+        queue<pair<Node*,int>> q;
+        q.push({root,0});
+        while(!q.empty()){
+            Node* node= q.front().first;
+            int lvl= q.front().second;
+            q.pop();
+            mpp[lvl]= node->data;
+            if(node->left) q.push({node->left,lvl-1});
+            if(node->right) q.push({node->right, lvl+1});
+        }
+        for( auto i: mpp){
+            ans.push_back(i.second);
+        }
+        return ans;
+    }
+};
