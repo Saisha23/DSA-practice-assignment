@@ -1,0 +1,53 @@
+1. count set bits
+
+class Solution {
+  public:
+    int countSetBits(int n) {
+        // code here
+        if (n == 0) return 0;
+
+        int x = log2(n);  // highest power of 2 <= n
+
+        int bitsBefore = x * (1 << (x - 1));
+
+        int msbBits = n - (1 << x) + 1;
+
+        int rest = n - (1 << x);
+
+        return bitsBefore + msbBits + countSetBits(rest);
+
+
+    }
+};
+
+2. toggle a given kth bit
+
+class Solution {
+  public:
+    int toggleBits(int n, int L, int R) {
+        // code here
+        int mask= ((1<<(R-L+1))-1)<<(L-1);
+        return n^mask;
+    }
+};
+
+3. check if nth bit is set or unset
+
+class Solution {
+  public:
+    bool checkKthBit(int n, int k) {
+        //  code here
+        int ans= n>>k;
+        return ans&1;
+    }
+};
+
+4. check power of two
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        if (n<=0) return false;
+        return ((n&(n-1))==0);
+    }
+};
