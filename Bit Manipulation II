@@ -1,0 +1,58 @@
+1. counting bits
+
+class Solution {
+public:
+    vector<int> countBits(int n) {
+        vector<int> ans;
+        for(int i=0;i<=n;i++){
+            int sum=0;
+            int num=i;
+            while(num!=0){
+                sum+=num%2;
+                num=num/2;
+            }
+            ans.push_back(sum);
+        }
+        return ans;
+    }
+};
+
+2. single number 1
+
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        xor=0
+        for i in nums:
+            xor=xor^i
+        return xor
+
+3. single number 2
+
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        unordered_map<int,int> m;
+        for (auto x: nums){
+            m[x]++;
+        }
+        for (auto x: m){
+            if(x.second == 1) return x.first;
+        }
+        return -1;
+    } 
+};
+
+4. Subsets using Bits (power set problem)
+
+
+
+5. find missing number
+
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        xor1=xor2=0
+        for i in range (len(nums)):
+            xor1=xor1^nums[i]
+            xor2=xor2^i
+        xor2=xor2^i+1
+        return(xor1^xor2)
