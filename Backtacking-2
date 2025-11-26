@@ -1,0 +1,75 @@
+1. Combination
+
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> res;
+        vector<int> ans;
+        backtrack(1,ans,res,n,k);
+        return res;
+    }
+    void backtrack(int start, vector<int>& ans, vector<vector<int>>& res, int n, int k){
+        if (ans.size()==k) {
+            res.push_back(ans);
+            return;
+        }
+        for (int i= start;i<=n;i++){
+            ans.push_back(i);
+            backtrack(i+1,ans,res,n,k);
+            ans.pop_back();
+        }
+    }
+};
+
+2. Combination Sum
+
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ds;
+        vector<int> current;
+        cnt(candidates, 0, target,current, ds );
+        return ds;
+    }
+
+    void cnt(vector<int>& candidates, int index, int target,vector<int>& current, vector<vector<int>>& ds){
+        if (target==0){
+            ds.push_back(current);
+            return;
+        }
+        if (index== candidates.size() || target<0) return;
+        if (candidates[index]<=target){ 
+            current.push_back(candidates[index]);
+            cnt(candidates, index, target-candidates[index],current, ds);
+            current.pop_back();
+        }
+        cnt(candidates, index+1, target,current, ds);
+        
+    }
+};
+
+3. Combination Sum-2
+
+class Solution {
+public:
+
+    void call(int index, vector<int>& candidates, vector<vector<int>> &ans, vector<int> &ds, int target){
+        if (target==0){
+            ans.push_back(ds);
+            return;}
+        for (int i= index;i<candidates.size();i++){
+            if (i>index && candidates[i]==candidates[i-1]) continue;
+            if (candidates[i]>target) break;
+            ds.push_back(candidates[i]);
+            call(i+1, candidates, ans, ds, target-candidates[i]);
+            ds.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort (candidates.begin(), candidates.end());
+        vector<vector<int>> ans;
+        vector<int> ds;
+        call(0,candidates, ans, ds, target);
+        return ans;
+    }
+};
