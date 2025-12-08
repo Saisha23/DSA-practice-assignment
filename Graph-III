@@ -1,0 +1,37 @@
+1. Connected Components
+
+class Solution {
+public:
+
+    void dfs(int i, vector<vector<int>>& adj, vector<int>& vis, vector<int>& ans){
+        vis[i]=1;
+        ans.push_back(i);
+
+        for(int node: adj[i]){
+            if(!vis[node]){
+                dfs(node,adj,vis,ans);
+            }
+        }
+    }
+    int countComponents(int n, vector<vector<int>>& edges) {
+        vector<vector<int>> adj(n);
+        for(auto &e: edges){
+            adj[e[0]].push_back(e[1]);
+            adj[e[1]].push_back(e[0]);
+        }
+        vector<int> vis(n,0);
+        vector<int> ans;
+        int count=0; 
+        for (int i=0;i<n;i++){
+            if(!vis[i]){
+                count++;
+                dfs(i,adj,vis,ans);
+            }
+        }
+        return count;
+    }
+};
+
+2. Detect cycles in graphs
+
+
