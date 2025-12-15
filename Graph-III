@@ -34,4 +34,37 @@ public:
 
 2. Detect cycles in graphs
 
-
+class Solution {
+  public:
+  
+    bool dfs(int node, vector<int> &vis,vector<int> &pathVis, vector<vector<int>> &adj){
+        vis[node]=1;
+        pathVis[node]=1;
+        
+        for (auto nbr: adj[node]){
+            if(!vis[nbr]){
+                if(dfs(nbr,vis,pathVis,adj)) return true;
+            }
+            else if(pathVis[nbr]) return true;
+        }
+        pathVis[node]=0;
+        return false;
+    }
+  
+  
+  
+    bool isCyclic(int V, vector<vector<int>> &edges) {
+        vector<vector<int>> adj(V);
+        for (auto &e : edges) {
+            adj[e[0]].push_back(e[1]);
+        }
+        vector<int> vis(V,0), pathVis(V, 0);
+        
+        for (int i=0;i<V;i++){
+            if (!vis[i]){
+                if (dfs(i,vis,pathVis,adj)) return true;
+            }
+        }
+        return false;
+    }
+};
